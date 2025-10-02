@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Absensi Taruna59 TPI F — Futuristis</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap');
+        :root {
+            --bg-dark: #0a0a1a;
+            --bg-medium: #1a1a2e;
+            --accent-cyan: #00d2ff;
+            --accent-magenta: #ff0077;
+            --text-light: #e0e0e0;
+            --border-glow: #00d2ff;
+            --success: #27ae60;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+        }
+        body {
+            font-family: 'Roboto Mono', monospace;
+            margin: 0;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: var(--bg-medium);
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.2), 0 0 40px rgba(255, 0, 119, 0.1);
+            overflow: hidden;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+        }
+        .header {
+            background: linear-gradient(90deg, #1a1a2e 0%, #0c0c1b 100%);
+            color: var(--text-light);
+            padding: 30px;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-cyan);
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2);
+        }
+        .header h1 {
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            text-shadow: 0 0 8px rgba(0, 210, 255, 0.8);
+        }
+        .header p {
+            margin: 8px 0 0 0;
+            opacity: 0.8;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        .content {
+            padding: 25px;
+        }
+        .table-container {
+            overflow-x: auto;
+            border-radius: 12px;
+            box-shadow: inset 0 0 10px rgba(0, 210, 255, 0.1);
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: transparent;
+        }
+        th {
+            background-color: rgba(0, 210, 255, 0.1);
+            color: var(--accent-cyan);
+            padding: 12px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        select {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid var(--accent-cyan);
+            background-color: var(--bg-medium);
+            color: var(--text-light);
+            cursor: pointer;
+        }
+        select option {
+            background-color: var(--bg-medium);
+        }
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        .stat-card {
+            min-width: 160px;
+            flex: 0 0 auto;
+            background: linear-gradient(45deg, rgba(0, 210, 255, 0.1), rgba(255, 0, 119, 0.1));
+            color: var(--text-light);
+            padding: 18px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+            border: 1px solid var(--accent-cyan);
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 5px var(--accent-cyan);
+        }
+        .lists-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .list-section {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 5px solid var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.1);
+        }
+        .list-section h3 {
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+        }
+        .name-list {
+            max-height: 220px;
+            overflow: auto;
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .name-item {
+            padding: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .name-item:last-child {
+            border-bottom: none;
+        }
+        .placeholder {
+            font-style: italic;
+            color: #7f8c8d;
+            text-align: center;
+        }
+        .btn-row {
+            text-align: center;
+            margin-top: 25px;
+        }
+        .btn {
+            display: inline-block;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            color: var(--text-light);
+            font-weight: 700;
+            cursor: pointer;
+            margin: 6px;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: transform 0.6s ease-out;
+            transform: translateX(-100%);
+            z-index: -1;
+        }
+        .btn:hover:before {
+            transform: translateX(100%);
+        }
+        .btn-reset {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            box-shadow: 0 0 15px #e74c3c;
+        }
+        .btn-wa {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            box-shadow: 0 0 15px #2ecc71;
+        }
+        .btn-camera {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            box-shadow: 0 0 15px #3498db;
+        }
+        .btn-save {
+            background: linear-gradient(45deg, #1abc9c, #16a085);
+            box-shadow: 0 0 15px #1abc9c;
+        }
+        .btn-edit {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            box-shadow: 0 0 15px #9b59b6;
+        }
+        
+        /* Edit Modal Styles */
+        .modal, .dialog-modal, .prompt-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+        }
+        .modal-content {
+            background-color: var(--bg-medium);
+            margin: 5% auto;
+            padding: 0;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.5);
+            animation: modalFadeIn 0.3s;
+            border: 1px solid var(--accent-cyan);
+        }
+        .modal-header {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            color: var(--text-light);
+            padding: 20px;
+            border-radius: 16px 16px 0 0;
+        }
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 400;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .close {
+            color: var(--text-light);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0.8;
+            line-height: 1;
+        }
+        .close:hover {
+            opacity: 1;
+        }
+        .modal-body {
+            padding: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-light);
+            font-family: 'Roboto Mono', monospace;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-magenta);
+            box-shadow: 0 0 8px rgba(255, 0, 119, 0.5);
+        }
+        .edit-actions {
+            text-align: right;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn-cancel {
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+        }
+        .btn-save-edit {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+        }
+        
+        /* Edit button in table */
+        .edit-btn {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 5px;
+            box-shadow: 0 0 8px rgba(155, 89, 182, 0.5);
+        }
+        .edit-btn:hover {
+            opacity: 0.9;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Camera preview */
+        #preview {
+            margin-top: 15px;
+            text-align: center;
+        }
+        #photo {
+            max-width: 100%;
+            border-radius: 12px;
+            display: none;
+            margin-top: 15px;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+            border: 1px solid var(--accent-cyan);
+        }
+        
+        /* Generic dialog styles */
+        .dialog-content {
+            background-color: var(--bg-medium);
+            margin: 15% auto;
+            padding: 25px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 0 20px rgba(255, 0, 119, 0.3);
+            text-align: center;
+            border: 1px solid var(--accent-magenta);
+        }
+        .dialog-content h3 {
+            margin-top: 0;
+            color: var(--accent-magenta);
+            font-family: 'Orbitron', sans-serif;
+        }
+        .dialog-content p {
+            margin: 10px 0 20px 0;
+            color: var(--text-light);
+        }
+        .dialog-buttons {
+            text-align: center;
+        }
+        .dialog-buttons button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 0 8px;
+            transition: background 0.3s;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+        .dialog-buttons .confirm-ok, .confirm-yes {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+        }
+        .dialog-buttons .confirm-cancel, .confirm-no {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+        }
+        
+        /* Prompt dialog specific styles */
+        .prompt-input-group {
+            margin-bottom: 20px;
+        }
+        .prompt-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+        .prompt-input-group input {
+            width: calc(100% - 24px);
+            padding: 12px;
+            border: 1px solid var(--accent-cyan);
+            border-radius: 8px;
+            background-color: transparent;
+            color: var(--text-light);
+        }
+
+        /* Izin Modal Styles */
+        #izinModal .modal-content {
+            max-width: 800px;
+            width: 98%;
+        }
+        #izinModal .modal-header {
+            background: linear-gradient(90deg, #00d2ff, #ff0077);
+            color: var(--text-light);
+            padding: 22px 20px;
+            border-radius: 16px 16px 0 0;
+        }
+        #izinModal .modal-body {
+            padding: 28px 20px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .izin-note-row {
+            margin-bottom: 18px;
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .izin-note-row.filled {
+            background: rgba(39,174,96,0.12);
+        }
+        .izin-note-row.unfilled {
+            background: rgba(241,196,15,0.10);
+        }
+        .izin-note-row span {
+            flex: 1;
+            font-weight: 600;
+        }
+        .izin-note-row input {
+            flex: 2;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #00d2ff;
+            background: #181836;
+            color: #e0e0e0;
+        }
+        .izin-note-row input:focus {
+            border-color: var(--accent-magenta);
+        }
+        .izin-note-row .badge {
+            margin-left: 10px;
+            font-size: 1.2em;
+        }
+        @media (max-width: 540px) {
+            .stat-card {
+                min-width: 180px;
+            }
+            .modal-content {
+                width: 95%;
+                margin: 2% auto;
+            }
+            #izinModal .modal-content {
+                width: 99%;
+                max-width: 99vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚓ Absensi Taruna TPI Foxtrot</h1>
+            <p>Rekap via WhatsApp + Tagging</p>
+            <p>by.@fthrrzl_qa</p>
+        </div>
+
+        <div class="content">
+            <!-- DAFTAR -->
+            <div class="preview-section">
+                <h2 style="margin:0 0 10px 0; font-family: 'Orbitron', sans-serif;">📋 Preview Daftar Hadir</h2>
+                <div class="table-container">
+                    <table id="attendanceTable" aria-label="attendance table">
+                        <thead>
+                            <tr>
+                                <th style="width:60px">No</th>
+                                <th>Nama Taruna</th>
+                                <th style="width:160px">Status</th>
+                                <th style="width:80px">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- STAT -->
+            <div class="preview-section">
+                <h2 style="margin:0 0 10px 0; font-family: 'Orbitron', sans-serif;">📊 Rekap Absensi Real-time</h2>
+                <div class="stats" id="statsRow">
+                    <div class="stat-card"><div class="stat-number" id="totalHadir">0</div><div class="stat-label">Hadir</div></div>
+                    <div class="stat-card"><div class="stat-number" id="totalAbsen">0</div><div class="stat-label">Tidak Hadir</div></div>
+                    <div class="stat-card"><div class="stat-number" id="totalIzin">0</div><div class="stat-label">Izin</div></div>
+                </div>
+
+                <!-- LISTS -->
+                <div class="lists-container">
+                    <div class="list-section">
+                        <h3>✅ Hadir <span style="cursor:pointer" title="Copy" onclick="copyList('hadir')">📋</span></h3>
+                        <div class="name-list" id="hadirList"><div class="name-item placeholder">Belum ada yang hadir</div></div>
+                    </div>
+                    <div class="list-section">
+                        <h3>❌ Tidak Hadir <span style="cursor:pointer" title="Copy" onclick="copyList('absen')">📋</span></h3>
+                        <div class="name-list" id="absenList"><div class="name-item placeholder">Semua taruna hadir</div></div>
+                    </div>
+                    <div class="list-section">
+                        <h3>
+                          🟡 Izin 
+                          <span style="cursor:pointer" title="Fullscreen" onclick="showIzinModal()">⛶</span>
+                          <span style="cursor:pointer" title="Copy" onclick="copyList('izin')">📋</span>
+                        </h3>
+                        <div class="name-list" id="izinList"><div class="name-item placeholder">Tidak ada izin</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CAMERA -->
+            <div style="margin-top:16px">
+                <input type="file" accept="image/*" capture="environment" id="cameraInput" style="display:none">
+                <button class="btn btn-camera" onclick="document.getElementById('cameraInput').click()">📷 Ambil Foto Absensi</button>
+                <div id="preview">
+                    <canvas id="canvas" style="display:none"></canvas>
+                    <img id="photo" alt="Foto hasil jepretan">
+                </div>
+                <div style="text-align:center;margin-top:10px">
+                    <button id="saveBtn" class="btn btn-save" style="display:none" onclick="savePhoto()">💾 Simpan Foto (dengan timestamp)</button>
+                </div>
+            </div>
+
+            <!-- ACTION -->
+            <div class="btn-row">
+                <button class="btn btn-edit" onclick="toggleEditMode()">✏️ Edit Nama</button>
+                <button class="btn btn-reset" onclick="handleResetStatus()">🔄 Reset Absensi</button>
+                <button class="btn btn-wa" onclick="handleSendWhatsApp()">📲 Kirim Rekapan via WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeEditModal()">&times;</span>
+                <h2>✏️ Edit Data Taruna</h2>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <div class="form-group">
+                        <label for="editNama">Nama Taruna:</label>
+                        <input type="text" id="editNama" name="nama" required>
+                    </div>
+                    <div class="edit-actions">
+                        <button type="button" class="btn btn-cancel" onclick="closeEditModal()">❌ Batal</button>
+                        <button type="submit" class="btn btn-save-edit">💾 Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Izin Modal Fullscreen -->
+    <div id="izinModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close" onclick="saveIzinNotes();closeIzinModal()">&times;</span>
+          <h2>🟡 Keterangan Izin</h2>
+          <p style="font-size:0.95rem;">Isi keterangan untuk setiap taruna yang izin. Setelah selesai, klik <b>Simpan</b>.</p>
+        </div>
+        <form id="izinModalForm" onsubmit="saveIzinNotes();closeIzinModal();return false;">
+          <div class="modal-body" id="izinModalBody">
+            <!-- Diisi dinamis JS -->
+          </div>
+          <div style="padding:16px 20px;text-align:right;">
+            <button type="button" class="btn btn-save" onclick="saveIzinNotes();closeIzinModal();">💾 Simpan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Generic Message Modal (for alerts) -->
+    <div id="messageModal" class="dialog-modal">
+        <div class="dialog-content">
+            <h3 id="messageTitle"></h3>
+            <p id="messageBody"></p>
+            <div class="dialog-buttons">
+                <button class="confirm-ok" onclick="closeMessageModal()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generic Confirmation Modal (for confirms) -->
+    <div id="confirmModal" class="dialog-modal">
+        <div class="dialog-content">
+            <h3 id="confirmTitle"></h3>
+            <p id="confirmBody"></p>
+            <div class="dialog-buttons">
+                <button class="confirm-yes">Ya</button>
+                <button class="confirm-no">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Generic Prompt Modal (for prompts) -->
+    <div id="promptModal" class="prompt-modal">
+        <div class="dialog-content">
+            <h3 id="promptTitle"></h3>
+            <p id="promptBody"></p>
+            <div class="prompt-input-group">
+                <label for="promptInput" id="promptLabel"></label>
+                <input type="text" id="promptInput">
+            </div>
+            <div class="dialog-buttons">
+                <button class="confirm-ok">OK</button>
+                <button class="confirm-cancel">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ===== DATA TARUNA (lengkap 40) - NRP Dihapus ===== */
+        let tarunaData = [
+            { no: 1, nama: "Ade James Bill Kevin Hati" },
+            { no: 2, nama: "Afwan Fauzan S" },
+            { no: 3, nama: "Ahmad Irfan Pebriyan" },
+            { no: 4, nama: "Al Mubarak" },
+            { no: 5, nama: "Alman Faluti" },
+            { no: 6, nama: "Andi Zaidin Raub" },
+            { no: 7, nama: "Arya Bayu Pratama" },
+            { no: 8, nama: "Calvin Syadef" },
+            { no: 9, nama: "Danu Pramana" },
+            { no: 10, nama: "Dino Perdian" },
+            { no: 11, nama: "Elang Sakti Massaid" },
+            { no: 12, nama: "Faris Arya Makarim" },
+            { no: 13, nama: "Fiqsan Fanshury Roja" },
+            { no: 14, nama: "Frizzy Fawwaz Zaky" },
+            { no: 15, nama: "Hadrianto" },
+            { no: 16, nama: "Heribertus Bili" },
+            { no: 17, nama: "Ilham Ihsani" },
+            { no: 18, nama: "Jastin Sahertian" },
+            { no: 19, nama: "Juan Dito Latuheru" },
+            { no: 20, nama: "Kodri Azizi Rahakbauw" },
+            { no: 21, nama: "Luthfi Ernando" },
+            { no: 22, nama: "M. Wahyu Effendi" },
+            { no: 23, nama: "Mas Rianto" },
+            { no: 24, nama: "Mohammad Syahdilah Munasyar" },
+            { no: 25, nama: "Muhammad Fatkhurrizal Qurrota A" },
+            { no: 26, nama: "Muhammad Fachrie Winarmo" },
+            { no: 27, nama: "Muhammad Najmi Nidarrahman" },
+            { no: 28, nama: "Muhammad Sam Azis" },
+            { no: 29, nama: "Nanda Syahputra" },
+            { no: 30, nama: "Rafael Dara Jaha Baghi" },
+            { no: 31, nama: "Rangga Irvanda" },
+            { no: 32, nama: "Ridho Ahmad Wellete" },
+            { no: 33, nama: "Riski" },
+            { no: 34, nama: "Rizqy Ari Murti" },
+            { no: 35, nama: "Samsudin Kotatala" },
+            { no: 36, nama: "Sheva Dwi Fatkhurrohman" },
+            { no: 37, nama: "Sulthan Nadhif Darmawan" },
+            { no: 38, nama: "T. Ibnu Sina" },
+            { no: 39, nama: "Yahya Solissa" },
+            { no: 40, nama: "Zakarias Lede Bulu" }
+        ];
+
+        let izinNotes = {}; // key: taruna.no, value: keterangan
+        let isEditMode = false;
+        let currentEditIndex = -1;
+
+        /* ===== MODAL KUSTOM UNTUK PESAN/KONFIRMASI ===== */
+        let confirmResolver = null;
+        let promptResolver = null;
+
+        function showMessage(title, message) {
+            document.getElementById('messageTitle').textContent = title;
+            document.getElementById('messageBody').textContent = message;
+            document.getElementById('messageModal').style.display = 'block';
+        }
+
+        function closeMessageModal() {
+            document.getElementById('messageModal').style.display = 'none';
+        }
+
+        function showConfirm(title, message) {
+            return new Promise((resolve) => {
+                confirmResolver = resolve;
+                document.getElementById('confirmTitle').textContent = title;
+                document.getElementById('confirmBody').textContent = message;
+                document.getElementById('confirmModal').style.display = 'block';
+            });
+        }
+
+        function showPrompt(title, message, placeholder = '') {
+            return new Promise((resolve) => {
+                promptResolver = resolve;
+                document.getElementById('promptTitle').textContent = title;
+                document.getElementById('promptBody').textContent = message;
+                document.getElementById('promptInput').value = '';
+                document.getElementById('promptInput').placeholder = placeholder;
+                document.getElementById('promptModal').style.display = 'block';
+                setTimeout(() => document.getElementById('promptInput').focus(), 100);
+            });
+        }
+
+        document.querySelector('#confirmModal .confirm-yes').onclick = () => {
+            if (confirmResolver) {
+                confirmResolver(true);
+                document.getElementById('confirmModal').style.display = 'none';
+            }
+        };
+
+        document.querySelector('#confirmModal .confirm-no').onclick = () => {
+            if (confirmResolver) {
+                confirmResolver(false);
+                document.getElementById('confirmModal').style.display = 'none';
+            }
+        };
+
+        document.querySelector('#promptModal .confirm-ok').onclick = () => {
+            if (promptResolver) {
+                const value = document.getElementById('promptInput').value;
+                promptResolver(value);
+                document.getElementById('promptModal').style.display = 'none';
+            }
+        };
+
+        document.querySelector('#promptModal .confirm-cancel').onclick = () => {
+            if (promptResolver) {
+                promptResolver(null);
+                document.getElementById('promptModal').style.display = 'none';
+            }
+        };
+
+        /* ===== INIT TABLE ===== */
+        function initializeTable(){
+            const tbody = document.getElementById('attendanceBody');
+            tbody.innerHTML = '';
+            tarunaData.forEach((t, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${t.no}</td>
+                    <td id="nama_${index}">${t.nama}</td>
+                    <td>
+                        <select id="status_${t.no}" onchange="updateStats()">
+                            <option value="absen">❌ Tidak Hadir</option>
+                            <option value="hadir">✅ Hadir</option>
+                            <option value="izin">🟡 Izin</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="edit-btn" onclick="openEditModal(${index})" style="display:${isEditMode ? 'inline-block' : 'none'}">✏️</button>
+                    </td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+        /* ===== EDIT MODE FUNCTIONS ===== */
+        function toggleEditMode(){
+            isEditMode = !isEditMode;
+            const editBtns = document.querySelectorAll('.edit-btn');
+            const toggleBtn = document.querySelector('.btn-edit');
+            
+            if(isEditMode){
+                editBtns.forEach(btn => btn.style.display = 'inline-block');
+                toggleBtn.innerHTML = '❌ Selesai Edit';
+                toggleBtn.style.background = 'linear-gradient(45deg,#e74c3c,#c0392b)';
+            } else {
+                editBtns.forEach(btn => btn.style.display = 'none');
+                toggleBtn.innerHTML = '✏️ Edit Nama';
+                toggleBtn.style.background = 'linear-gradient(45deg,#9b59b6,#8e44ad)';
+            }
+        }
+
+        function openEditModal(index){
+            currentEditIndex = index;
+            const taruna = tarunaData[index];
+            
+            document.getElementById('editNama').value = taruna.nama;
+            document.getElementById('editModal').style.display = 'block';
+            
+            // Fokus pada input nama
+            setTimeout(() => document.getElementById('editNama').focus(), 100);
+        }
+
+        function closeEditModal(){
+            document.getElementById('editModal').style.display = 'none';
+            currentEditIndex = -1;
+            document.getElementById('editForm').reset();
+        }
+
+        // Handle edit form submission
+        document.getElementById('editForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            
+            if(currentEditIndex === -1) return;
+            
+            const newNama = document.getElementById('editNama').value.trim();
+            
+            if(!newNama){
+                showMessage('Peringatan', 'Nama harus diisi!');
+                return;
+            }
+            
+            // Update data
+            tarunaData[currentEditIndex].nama = newNama;
+            
+            // Update display
+            document.getElementById(`nama_${currentEditIndex}`).textContent = newNama;
+            
+            // Update stats (in case name changed)
+            updateStats();
+            
+            closeEditModal();
+            
+            showMessage('Berhasil', 'Data berhasil diperbarui!');
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const editModal = document.getElementById('editModal');
+            const izinModal = document.getElementById('izinModal');
+            if (event.target === editModal) {
+                closeEditModal();
+            }
+            if (event.target === izinModal) {
+                saveIzinNotes();
+                closeIzinModal();
+            }
+        }
+
+        /* ===== UPDATE STATS & LISTS ===== */
+        function updateStats(){
+            const selects = Array.from(document.querySelectorAll('select[id^="status_"]'));
+            let hadir=0, absen=0, izin=0;
+            const hadirNames=[], absenNames=[], izinNames=[];
+            selects.forEach((sel,i)=>{
+                const nama = tarunaData[i].nama;
+                if(sel.value==='hadir'){ hadir++; hadirNames.push(nama); }
+                else if(sel.value==='izin'){ izin++; izinNames.push(nama); }
+                else { absen++; absenNames.push(nama); }
+
+                // Auto-hapus keterangan izin jika status berubah dari izin
+                if(sel.value !== 'izin' && izinNotes[tarunaData[i].no]) {
+                    delete izinNotes[tarunaData[i].no];
+                }
+            });
+
+            document.getElementById('totalHadir').textContent = hadir;
+            document.getElementById('totalAbsen').textContent = absen;
+            document.getElementById('totalIzin').textContent = izin;
+
+            const hadirList = document.getElementById('hadirList');
+            const absenList = document.getElementById('absenList');
+            const izinList = document.getElementById('izinList');
+
+            hadirList.innerHTML = hadirNames.length ? hadirNames.map(n=>`<div class="name-item">${n}</div>`).join('') : '<div class="name-item placeholder">Belum ada yang hadir</div>';
+            absenList.innerHTML = absenNames.length ? absenNames.map(n=>`<div class="name-item">${n}</div>`).join('') : '<div class="name-item placeholder">Semua taruna hadir</div>';
+            izinList.innerHTML = izinNames.length ? izinNames.map(n=>`<div class="name-item">${n}</div>`).join('') : '<div class="name-item placeholder">Tidak ada izin</div>';
+        }
+
+        /* ===== MODAL IZIN FULLSCREEN ===== */
+        function showIzinModal() {
+            const modal = document.getElementById('izinModal');
+            const body = document.getElementById('izinModalBody');
+            body.innerHTML = '';
+            const selects = Array.from(document.querySelectorAll('select[id^="status_"]'));
+            let found = false;
+            tarunaData.forEach((t, i) => {
+                if (selects[i].value === 'izin') {
+                    found = true;
+                    const note = izinNotes[t.no] || '';
+                    body.innerHTML += `
+                      <div class="izin-note-row ${note ? 'filled' : 'unfilled'}">
+                        <span>${i+1}. ${t.nama}</span>
+                        <input type="text"
+                          data-no="${t.no}"
+                          name="izin_note_${t.no}"
+                          value="${note.replace(/"/g,'&quot;')}"
+                          placeholder="Keterangan izin (misal: sakit, urusan keluarga)">
+                        <span class="badge">
+                          ${note ? '<span style="color:#27ae60;">✔️</span>' : '<span style="color:#f1c40f;">🟡</span>'}
+                        </span>
+                      </div>
+                    `;
+                }
+            });
+            if (!found) {
+                body.innerHTML = '<div style="margin:24px 0;font-style:italic;text-align:center;color:#7f8c8d;">Tidak ada taruna yang izin.</div>';
+            }
+            modal.style.display = 'block';
+        }
+        function saveIzinNotes() {
+            const form = document.getElementById('izinModalForm');
+            tarunaData.forEach(t => {
+                const input = form.querySelector(`input[name="izin_note_${t.no}"]`);
+                if (input) {
+                    izinNotes[t.no] = input.value.trim();
+                }
+            });
+        }
+        function closeIzinModal() {
+            document.getElementById('izinModal').style.display = 'none';
+        }
+
+        /* ===== RESET (confirm) ===== */
+        async function handleResetStatus(){
+            const confirmed = await showConfirm('Konfirmasi', 'Yakin ingin mereset absensi?');
+            if(!confirmed) return;
+            document.querySelectorAll('select[id^="status_"]').forEach(s=>s.value='absen');
+            updateStats();
+        }
+
+        /* ===== COPY LIST (skip placeholder) ===== */
+        function copyList(type){
+            const el = document.getElementById(type+'List');
+            const items = Array.from(el.querySelectorAll('.name-item'));
+            const real = items.filter(it => !it.classList.contains('placeholder')).map(it=>it.textContent.trim());
+            if(real.length===0){ showMessage('Info', 'Belum ada data untuk disalin!'); return; }
+            // Format izin: Nama Taruna - [keterangan izin]
+            if (type === 'izin') {
+                const selects = Array.from(document.querySelectorAll('select[id^="status_"]'));
+                let hasil = [];
+                tarunaData.forEach((t, i) => {
+                    if (selects[i].value === 'izin') {
+                        const note = izinNotes[t.no] || '';
+                        hasil.push(`${hasil.length+1}. ${t.nama} - [${note ? note : '...'}]`);
+                    }
+                });
+                const text = hasil.join('\n');
+                navigator.clipboard.writeText(text).then(() => showMessage('Berhasil', `Daftar izin berhasil disalin!`));
+                return;
+            }
+            // Normal
+            const text = real.map((n,i)=>`${i+1}. ${n}`).join('\n');
+            navigator.clipboard.writeText(text).then(() => showMessage('Berhasil', `Daftar ${type} berhasil disalin!`));
+        }
+
+        /* ===== SEND WHATSAPP with template (cancel stops) ===== */
+        async function handleSendWhatsApp(){
+            const total = tarunaData.length;
+            const selects = Array.from(document.querySelectorAll('select[id^="status_"]'));
+            let hadir=0, absen=0, izin=0;
+            const hadirNames=[], absenNames=[], izinNames=[];
+            selects.forEach((sel,i)=>{
+                const nama = tarunaData[i].nama;
+                if(sel.value==='hadir'){ hadir++; hadirNames.push(nama); }
+                else if(sel.value==='izin'){ izin++; izinNames.push(nama); }
+                else { absen++; absenNames.push(nama); }
+            });
+
+            // waktu lengkap (jam:menit:detik)
+            const now = new Date();
+            const jam = now.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+            const tanggal = now.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+
+            let message = `Rekap apel (${jam} - ${tanggal}) TPI F
+Total : ${total}
+Hadir : ${hadir}
+Tidak hadir : ${absen}
+Izin : ${izin}
+Keterangan :`;
+
+            if(absenNames.length > 0){
+                message += `\nA. Tidak hadir`;
+                absenNames.forEach((n,i) => message += `\n${i+1}. ${n}`);
+            }
+            if(izinNames.length > 0){
+                message += `\n\nB. Izin`;
+                tarunaData.forEach((t, i) => {
+                    if (selects[i].value === 'izin') {
+                        const note = izinNotes[t.no] || '';
+                        message += `\n${izinNames.indexOf(t.nama)+1}. ${t.nama} - [${note ? note : '...'}]`;
+                    }
+                });
+            }
+
+            const tambahan = await showPrompt('Catatan Tambahan', 'Tambahkan keterangan lainnya (opsional):', '');
+            if(tambahan === null) return; // BATAL -> stop
+            if(tambahan.trim()!=='') message += `\n\nCatatan tambahan: ${tambahan.trim()}`;
+
+            const waUrl = 'https://wa.me/?text='+encodeURIComponent(message);
+            window.open(waUrl,'_blank');
+        }
+
+        /* ===== CAMERA + TIMESTAMP + GPS (no external API) ===== */
+        const input = document.getElementById('cameraInput');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const photo = document.getElementById('photo');
+        const saveBtn = document.getElementById('saveBtn');
+
+        input.addEventListener('change', async function(e){
+            const file = e.target.files && e.target.files[0];
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = function(ev){
+                const img = new Image();
+                img.onload = async function(){
+                    // set canvas size (limit to reasonable width to avoid too huge)
+                    const maxW = 1200;
+                    const scale = img.width > maxW ? maxW / img.width : 1;
+                    canvas.width = Math.round(img.width * scale);
+                    canvas.height = Math.round(img.height * scale);
+                    ctx.clearRect(0,0,canvas.width,canvas.height);
+                    ctx.drawImage(img,0,0,canvas.width,canvas.height);
+
+                    // capture timestamp
+                    const now = new Date();
+                    const tanggalJam = now.toLocaleString('id-ID', {
+                        day:'numeric', month:'long', year:'numeric',
+                        hour:'2-digit', minute:'2-digit', second:'2-digit'
+                    });
+
+                    // try to get geolocation (with timeout)
+                    let coordsText = 'Koordinat: unavailable';
+                    try {
+                        const pos = await getCurrentPosition({enableHighAccuracy:true, timeout:8000, maximumAge:0});
+                        const lat = pos.coords.latitude.toFixed(6);
+                        const lon = pos.coords.longitude.toFixed(6);
+                        coordsText = `Koordinat: ${lat}, ${lon}`;
+                    } catch(err){
+                        // gagal/minta izin ditolak => tetep lanjut dengan unavailable
+                        coordsText = 'Koordinat: tidak tersedia';
+                    }
+
+                    // draw background rectangle for readability
+                    const pad = 18;
+                    ctx.font = 'bold 36px Arial';
+                    // measure texts
+                    const ts = `Timestamp: ${tanggalJam}`;
+                    const cs = coordsText;
+                    const tsWidth = ctx.measureText(ts).width;
+                    const csWidth = ctx.measureText(cs).width;
+                    const rectW = Math.max(tsWidth, csWidth) + pad*2;
+                    const rectH = 36*2 + pad; // two lines
+                    const x = 20;
+                    const y = canvas.height - rectH - 20;
+                    ctx.fillStyle = 'rgba(0,0,0,0.55)';
+                    ctx.fillRect(x-10, y-10, rectW+20, rectH+20);
+
+                    // draw timestamp (bigger)
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = 'bold 32px Arial';
+                    ctx.fillText(ts, x, y + 36);
+                    ctx.font = '20px Arial';
+                    ctx.fillText(cs, x, y + 36 + 34);
+
+                    // set preview
+                    photo.src = canvas.toDataURL('image/png');
+                    photo.style.display = 'block';
+                    saveBtn.style.display = 'inline-block';
+                    // scroll to photo (mobile)
+                    photo.scrollIntoView({behavior:'smooth',block:'center'});
+                };
+                img.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // helper getCurrentPosition -> Promise
+        function getCurrentPosition(options){
+            return new Promise((resolve, reject) => {
+                if(!navigator.geolocation) return reject(new Error('No geolocation'));
+                navigator.geolocation.getCurrentPosition(resolve, reject, options);
+            });
+        }
+
+        // save photo to device
+        function savePhoto(){
+            try {
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = `absensi_${Date.now()}.png`;
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                showMessage('Berhasil', 'Foto lengkap dengan timestamp & koordinat berhasil disimpan. Silakan lampirkan ke WhatsApp.');
+            } catch(e){
+                showMessage('Gagal', 'Gagal menyimpan foto: ' + (e.message || e));
+            }
+        }
+
+        /* ===== init ===== */
+        document.addEventListener('DOMContentLoaded', ()=>{
+            initializeTable();
+            updateStats();
+        });
+    </script>
+</body>
+</html>
